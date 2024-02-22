@@ -1,0 +1,79 @@
+import java.util.Scanner;
+
+// Interface Taxable
+interface Taxable {
+    double SALES_TAX = 0.07;
+    double INCOME_TAX = 0.105;
+
+    double calcTax(); // Abstract method
+}
+
+// Employee class
+class task2 implements Taxable {
+    private int empId;
+    private String name;
+    private double salary;
+
+    public task2(int empId, String name, double salary) {
+        this.empId = empId;
+        this.name = name;
+        this.salary = salary;
+    }
+
+    @Override
+    public double calcTax() {
+        return salary * INCOME_TAX;
+    }
+}
+
+// Product class
+class Product implements Taxable {
+    private int pid;
+    private double price;
+    private int quantity;
+
+    public Product(int pid, double price, int quantity) {
+        this.pid = pid;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
+    @Override
+    public double calcTax() {
+        return price * SALES_TAX;
+    }
+}
+
+public class XYZ {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Accept employee information
+        System.out.println("Enter Employee Information:");
+        System.out.print("Employee ID: ");
+        int empId = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+        System.out.print("Employee Name: ");
+        String empName = scanner.nextLine();
+        System.out.print("Employee Salary: ");
+        double empSalary = scanner.nextDouble();
+        task2 employee = new task2(empId, empName, empSalary);
+
+        // Accept product information
+        System.out.println("\nEnter Product Information:");
+        System.out.print("Product ID: ");
+        int pid = scanner.nextInt();
+        System.out.print("Product Price: ");
+        double price = scanner.nextDouble();
+        System.out.print("Product Quantity: ");
+        int quantity = scanner.nextInt();
+        Product product = new Product(pid, price, quantity);
+
+        // Calculate and print taxes
+        System.out.println("\nIncome Tax for " + empName + ": " + employee.calcTax());
+        System.out.println("Sales Tax for Product ID " + pid + ": " + product.calcTax());
+
+        scanner.close();
+    }
+}
+
